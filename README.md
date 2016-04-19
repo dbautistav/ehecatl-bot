@@ -1,5 +1,5 @@
 #Ehécatl
-Consulta [la página de calidad del aire](aire.cdmx.gob.mx) y la [comunica a sus amigos (por slack)](ehecatl-bot.herokuapp.com/login).
+Consulta [la página de calidad del aire](http://aire.cdmx.gob.mx) y la [comunica a sus amigos (por slack)](http://ehecatl-bot.herokuapp.com/login).
 
 Responde a:
 - `@ehecatl echo`
