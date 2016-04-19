@@ -97,7 +97,7 @@ function ehecatlCore(callback) {
             return res.text();
         })
         .then(function(body) {
-            console.log(body);
+            //console.log(body);
             var salidas = JSON.stringify(body.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/i, "_").replace(/'/i, "-"));
 
             var calidadDelAireDivId = "iconos-recomendaciones-calidad-aire";
@@ -123,8 +123,8 @@ function ehecatlCore(callback) {
 
             var outputObj = {
                 calidad: "Calidad del aire: " + calidadResult,
-                indice: "Indice UV: " + indiceResult,
-                publico: (indiceResult > 5) ? "@channel: " : ""
+                indice: "Indice UV: " + indiceResult
+                //, publico: (indiceResult > 5) ? "@channel: " : ""
             };
 
             console.log(outputObj);
@@ -139,7 +139,9 @@ controller
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
             ehecatlCore(function (responseObj) {
-                bot.reply(message, responseObj);
+                var resultMsg = responseObj.calidad + " " + responseObj.indice;
+                console.log(resultMsg);
+                bot.reply(message, resultMsg);
             });
         }
     );
