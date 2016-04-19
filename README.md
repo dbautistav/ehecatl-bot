@@ -10,4 +10,4 @@ con un mensaje como:
 - `Indice UV: 0, Calidad del aire: MALA. Más info: http://www.aire.cdmx.gob.mx`
 
 
-Basado en [un tutorial de medium](https://medium.com/slack-developer-blog/easy-peasy-bots-getting-started-96b65e6049bf).
+Basado en [un gran proyecto](https://github.com/slackhq/easy-peasy-bot) y siguiendo [un tutorial de medium](https://medium.com/slack-developer-blog/easy-peasy-bots-getting-started-96b65e6049bf).
