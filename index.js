@@ -1,8 +1,7 @@
 /**
  * A Bot for Slack!
  */
-var fetch = require('node-fetch');
-
+var ehecatl = require("./ehecatlCore");
 
 /**
  * Define a function for initiating a conversation on installation
@@ -90,56 +89,16 @@ controller.on('bot_channel_join', function (bot, message) {
 //    bot.reply(message, 'Hello!');
 //});
 
-// FIXME: move this to its own file and 'require' it!
-function ehecatlCore(callback) {
-    fetch("http://www.aire.df.gob.mx/default.php")
-        .then(function(res) {
-            return res.text();
-        })
-        .then(function(body) {
-            //console.log(body);
-            var salidas = JSON.stringify(body.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/i, "_").replace(/'/i, "-"));
-
-            var calidadDelAireDivId = "iconos-recomendaciones-calidad-aire";
-            var indiceUVImgId = "iconos-uv";
-
-            var calidadIdx = salidas.indexOf(calidadDelAireDivId) + calidadDelAireDivId.length + 1;
-            var indiceIdx = salidas.indexOf(indiceUVImgId) + indiceUVImgId.length + 1;
-
-            var calidadRegExp = /.*(.png)/gi;
-            var indiceRegExp = /(\d)+/gi;
-
-            var calidadFragmentStr = salidas.slice(calidadIdx, calidadIdx + 10);
-            var indiceFragmentStr = salidas.slice(indiceIdx, indiceIdx + 10);
-
-            var calidadHelper = calidadFragmentStr.match(calidadRegExp);
-            var calidadHelperMatchedZero = calidadHelper[0].match(calidadRegExp)[0];
-
-            var calidadResult = calidadHelperMatchedZero.slice(0, calidadHelperMatchedZero.indexOf("."));
-            var indiceResult = indiceFragmentStr.match(indiceRegExp)[0];
-
-            //console.log("Calidad del aire:", calidadResult);
-            //console.log("Indice UV:", indiceResult);
-
-            var outputObj = {
-                calidad: "Calidad del aire: " + calidadResult,
-                indice: "Indice UV: " + indiceResult
-                //, publico: (indiceResult > 5) ? "@channel: " : ""
-            };
-
-            console.log(outputObj);
-            callback(outputObj);
-
-        });
-}
 
 controller
     .hears(
         ["echo", "how's out there?", "hello there!"],
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
-            ehecatlCore(function (responseObj) {
-                var resultMsg = responseObj.calidad + " " + responseObj.indice;
+            ehecatl(function (responseObj) {
+                var resultMsg = responseObj.publico + " " +
+                    responseObj.indice + ", " +
+                    responseObj.calidad + ". Más info: http://www.aire.cdmx.gob.mx";
                 console.log(resultMsg);
                 bot.reply(message, resultMsg);
             });
