@@ -97,7 +97,7 @@ function ehecatlCore(callback) {
             return res.text();
         })
         .then(function(body) {
-            ////console.log(body);
+            console.log(body);
             var salidas = JSON.stringify(body.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/i, "_").replace(/'/i, "-"));
 
             var calidadDelAireDivId = "iconos-recomendaciones-calidad-aire";
@@ -127,6 +127,7 @@ function ehecatlCore(callback) {
                 publico: (indiceResult > 5) ? "@channel: " : ""
             };
 
+            console.log(outputObj);
             callback(outputObj);
 
         });
@@ -134,7 +135,7 @@ function ehecatlCore(callback) {
 
 controller
     .hears(
-        ["echo", "how's out there?"],
+        ["echo", "how's out there?", "hello there!"],
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
             ehecatlCore(function (responseObj) {
