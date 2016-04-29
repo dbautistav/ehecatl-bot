@@ -113,7 +113,10 @@ controller
                     break;
 
                 default:
-                    return bot.reply(message, luni.tools.mirror.encode(userRequest));
+                    return bot.reply(message, userRequest
+                        ? luni.tools.mirror.encode(userRequest)
+                        : "Try again!  :P"
+                    );
                     break;
             }
         }
