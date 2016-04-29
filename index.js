@@ -99,6 +99,7 @@ controller
         //["echo", "how's out there?", "hello there!"],
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
+            console.info(message);
             var resultMsg
                 , userRequest = message.match[1] || message
                 ;
