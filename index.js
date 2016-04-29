@@ -1,7 +1,9 @@
 /**
  * A Bot for Slack!
  */
-var ehecatl = require("./ehecatlCore");
+var ehecatl = require("./public/src/ehecatlCore");
+var Lunicode = require("./public/lib/lunicode");
+var luni = new Lunicode();
 
 /**
  * Define a function for initiating a conversation on installation
@@ -92,16 +94,28 @@ controller.on('bot_channel_join', function (bot, message) {
 
 controller
     .hears(
-        ["echo", "how's out there?", "hello there!"],
-        ["direct_mention", "mention", "direct_message"],
+        ["(.*)"],
+        ["message_received"
+            //, "direct_mention", "mention", "direct_message"
+        ],
         function (bot, message) {
-            ehecatl(function (responseObj) {
-                var resultMsg = responseObj.publico + " " +
-                    responseObj.indice + ", " +
-                    responseObj.calidad + ". Más info: http://www.aire.cdmx.gob.mx";
-                console.log(resultMsg);
-                bot.reply(message, resultMsg);
-            });
+            var userRequest = message.match[1];
+
+            switch (userRequest) {
+                case "eco":
+                    ehecatl(function (responseObj) {
+                        var resultMsg = responseObj.publico + " " +
+                            responseObj.indice + ", " +
+                            responseObj.calidad + ". Más info: http://www.aire.cdmx.gob.mx";
+                        console.log(resultMsg);
+                        bot.reply(message, resultMsg);
+                    });
+                    break;
+
+                default:
+                    return bot.reply(message, luni.tools.mirror.encode(userRequest));
+                    break;
+            }
         }
     );
 
