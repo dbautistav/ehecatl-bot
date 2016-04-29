@@ -99,7 +99,7 @@ controller
         //["echo", "how's out there?", "hello there!"],
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
-            var userRequest = message.match[1];
+            var userRequest = message.match[1] || message;
 
             switch (userRequest) {
                 case "eco":
@@ -115,7 +115,7 @@ controller
                 default:
                     return bot.reply(message, userRequest
                         ? luni.tools.mirror.encode(userRequest)
-                        : "Try again!  :P"
+                        : "Prueba con: \"eco\".  :P"
                     );
                     break;
             }
