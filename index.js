@@ -100,9 +100,8 @@ controller
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
             console.info(message);
-            var resultMsg
-                , userRequest = message.match[1] || message
-                ;
+            var resultMsg;
+            var userRequest = message.match[1] || message.text || "Prueba con: \"eco\".  :P";
 
             switch (userRequest) {
                 case "eco":
@@ -116,9 +115,7 @@ controller
                     break;
 
                 default:
-                    resultMsg = userRequest
-                        ? luni.tools.mirror.encode(userRequest)
-                        : "Prueba con: \"eco\".  :P";
+                    resultMsg = luni.tools.mirror.encode(userRequest);
                     console.log(resultMsg);
                     return bot.reply(message, resultMsg);
                     break;
