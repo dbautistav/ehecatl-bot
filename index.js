@@ -99,12 +99,14 @@ controller
         //["echo", "how's out there?", "hello there!"],
         ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
-            var userRequest = message.match[1] || message;
+            var resultMsg
+                , userRequest = message.match[1] || message
+                ;
 
             switch (userRequest) {
                 case "eco":
                     ehecatl(function (responseObj) {
-                        var resultMsg = responseObj.publico + " " +
+                        resultMsg = responseObj.publico + " " +
                             responseObj.indice + ", " +
                             responseObj.calidad + ". Más info: http://www.aire.cdmx.gob.mx";
                         console.log(resultMsg);
@@ -113,10 +115,11 @@ controller
                     break;
 
                 default:
-                    return bot.reply(message, userRequest
+                    resultMsg = userRequest
                         ? luni.tools.mirror.encode(userRequest)
-                        : "Prueba con: \"eco\".  :P"
-                    );
+                        : "Prueba con: \"eco\".  :P";
+                    console.log(resultMsg);
+                    return bot.reply(message, resultMsg);
                     break;
             }
         }
