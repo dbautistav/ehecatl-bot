@@ -94,10 +94,10 @@ controller.on('bot_channel_join', function (bot, message) {
 
 controller
     .hears(
-        ["(.*)"],
-        ["message_received"
-            //, "direct_mention", "mention", "direct_message"
-        ],
+        ["echo", "(.*)"],
+        //["message_received"],
+        //["echo", "how's out there?", "hello there!"],
+        ["direct_mention", "mention", "direct_message"],
         function (bot, message) {
             var userRequest = message.match[1];
 
